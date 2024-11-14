@@ -3,28 +3,61 @@ class Calculator:
         return a + b
 
     def subtract(self, a, b):
-        return b - a
+        return a - b
 
     def multiply(self, a, b):
         result = 0
-        for i in range(b+1):
+        negativeresult = False
+        if b < 0:
+            b = -b
+            negative_result = not negative_result
+        if a < 0:
+            a = -a
+            negative_result = not negative_result
+
+        for  in range(b):
             result = self.add(result, a)
-        return result
+
+        return -result if negativeresult else result
+
 
     def divide(self, a, b):
-        result = 0
-        while a > b:
-            a = self.subtract(a, b)
-            result += 1
-        return result
-    
-    def modulo(self, a, b):
-        while a <= b:
-            a = a-b
-        return a
+        if b == 0:
+            return "Cannot divide by zero"
 
-# Example usage:
-if __name__ == "__main__":
+        result = 0
+        negativeresult = False
+        if a < 0:
+            a = -a
+            negativeresult = not negativeresult
+        if b < 0:
+            b = -b
+            negative_result = not negative_result
+
+        while a >= b:
+            a = self.subtract(a, b)
+            result = self.add(result, 1)
+
+        return -result if negative_result else result
+
+    def modulo(self, a, b):
+        if b == 0:
+            return "Cannot modulo by zero"
+
+        negative_result = False
+        if a < 0:
+            negative_result = True
+
+        a = abs(a)
+        b = abs(b)
+        while a >= b:
+            a = self.subtract(a, b)
+            result = a
+
+        return -result if negative_result else result
+
+Example usage:
+if __name == "__main":
     calc = Calculator()
     print("This is a simple calculator class!")
     print("Example: addition: ", calc.add(1, 2))
